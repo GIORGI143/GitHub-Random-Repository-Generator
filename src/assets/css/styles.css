@@ -76,3 +76,45 @@ h1 svg {
 .element:active {
   cursor: grabbing;
 }
+.answer,
+.error-fetching {
+  background-color: rgba(183, 183, 183, 0.564);
+  max-width: 450px;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  min-height: 300px;
+  border-radius: 0.7rem;
+  color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+.error-fetching-container {
+  max-width: 450px;
+  width: 100%;
+}
+.error-fetching {
+  background-color: rgba(182, 0, 0, 0.335);
+  color: rgb(80, 0, 0);
+}
+.error-fetching-container button {
+  margin-top: 1.5rem;
+  border: unset;
+  font-weight: bold;
+  color: white;
+  background-color: red;
+  display: block;
+  width: 100%;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  cursor: grab;
+}
+.error-fetching-container button:hover {
+  opacity: 0.8;
+}
+.error-fetching-container button:active {
+  cursor: grabbing;
+}

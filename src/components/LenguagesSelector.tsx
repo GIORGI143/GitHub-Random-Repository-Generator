@@ -1,5 +1,6 @@
 import data from "../data/ProgramingLenguages.json";
-import { useState } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import { GlobalContext } from "../contexts/GlobalContextProvider";
 interface Lenguage {
   title: string;
   value: string;
@@ -7,12 +8,32 @@ interface Lenguage {
 
 const LenguagesSelector = () => {
   const lenguagesData: Lenguage[] = data;
-  const [selectedLenguage, setSelectedLenguage] =
-    useState<string>("Select a Lenguage");
+
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const { setSelectedLenguage, selectedLenguage } = useContext(GlobalContext);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setModalIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [modalIsOpen]);
 
   return (
     <div
+      ref={modalRef}
       className="drop-down-menu"
       style={{ overflowY: modalIsOpen ? "scroll" : "hidden" }}
     >
@@ -20,7 +41,7 @@ const LenguagesSelector = () => {
         className="selected-element"
         onClick={() => setModalIsOpen(!modalIsOpen)}
       >
-        {selectedLenguage}
+        {selectedLenguage?.title}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -39,7 +60,7 @@ const LenguagesSelector = () => {
             className="element"
             key={lenguage.value}
             onClick={() => {
-              setSelectedLenguage(lenguage.title);
+              setSelectedLenguage(lenguage);
               setModalIsOpen(false);
             }}
           >
