@@ -9,6 +9,7 @@ const DisplayRepository = () => {
   const [loading, setLoading] = useState(false);
   const [repo, setRepo] = useState<any>(null);
   const fetchData = async () => {
+    setLoading(true);
     const data = await getRandomRepoByLanguage();
     setRepo(data);
     setLoading(false);
